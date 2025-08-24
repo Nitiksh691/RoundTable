@@ -1,86 +1,67 @@
 import { useState } from "react";
-import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { HamburgerMenuIcon, Cross1Icon } from "@radix-ui/react-icons";
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
 
-  return (
-    <nav className="w-full md:fixed md:top-0 z-40 bg-black/90 border-b border-[#23253a] shadow-lg">
-      <div className="max-w-6xl mx-auto px-4 py-5 flex items-center justify-between">
-        {/* Logo */}
-        <span className="text-[22px] font-bold text-[#FDFD00] tracking-wide font-[Montserrat]">
-          Roundtable
-        </span>
+    return (
+        <nav className="w-full sticky z-40 bg-[#0a0702] px-5">
+            <div className="max-w-6xl mx-auto flex items-center justify-between relative">
+                <img
+                    src="https://www.roundtabledtu.in/_next/image?url=%2Fassets%2Fimages%2Frtlogo.png&w=256&q=75"
+                    alt="RoundTable Logo"
+                    className="w-24 h-24"
+                />
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-10">
-          <a
-            href="#home"
-            className="text-white hover:text-[#FDFD00] text-base font-medium transition-all"
-          >
-            Home
-          </a>
-          <a
-            href="#faq"
-            className="text-white hover:text-[#FDFD00] text-base font-medium transition-all"
-          >
-            FAQ
-          </a>
-          <a
-            href="#blog"
-            className="text-white hover:text-[#FDFD00] text-base font-medium transition-all"
-          >
-            Blog
-          </a>
-          <a
-            href="#programs"
-            className="text-white hover:text-[#FDFD00] text-base font-medium transition-all"
-          >
-            Programs
-          </a>
-        </div>
+                <ul className="hidden sm:flex items-center gap-8 text-white font-medium absolute left-1/2 -translate-x-1/2 font-sans text-[18px]">
+                    <li><a href="#home" className="hover:text-[#ff9900] px-5 py-2 hover:border hover:rounded-xl">Home</a></li>
+                    <li><a href="#intro" className="hover:text-[#ff9900] px-5 py-2 hover:border hover:rounded-xl">About</a></li>
+                    <li><a href="#projects" className="hover:text-[#ff9900] px-5 py-2 hover:border hover:rounded-xl">Events</a></li>
+                    <li><a href="#certificate" className="hover:text-[#ff9900] px-5 py-2 hover:border hover:rounded-xl">Projects</a></li>
+                    <li><a href="#contact" className="hover:text-[#ff9900] px-5 py-2 hover:border hover:rounded-xl">Team</a></li>
+                </ul>
 
-        {/* CTA Always Visible */}
-        <button className="bg-[#FDFD00] text-black px-6 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-all ring-2 ring-[#FDFD00]/40">
-          Join Now
-        </button>
+                {/* Join Now (Desktop → rightmost) */}
+                <button className="hidden sm:block bg-[#FDFD00] text-black px-5 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition-all ring-2 ring-[#FDFD00]/40 cursor-pointer">
+                    Join Now
+                </button>
 
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setMenuOpen(true)}
-          className="md:hidden ml-4 text-[#FDFD00] text-2xl"
-        >
-          <HamburgerMenuIcon />
-        </button>
-      </div>
+                {/* Join Now (Mobile → center) */}
+                <button className="sm:hidden bg-[#FDFD00] text-black px-4 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition-all ring-2 ring-[#FDFD00]/40 absolute left-1/2 -translate-x-1/2">
+                    Join Now
+                </button>
 
-      {/* Mobile Menu Overlay */}
-      {menuOpen && (
-        <div className="fixed inset-0 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center md:hidden z-50">
-          <button
-            onClick={() => setMenuOpen(false)}
-            className="absolute top-8 right-8"
-          >
-            <span className="text-[#FDFD00] text-3xl">&times;</span>
-          </button>
-          <nav className="flex flex-col gap-10 text-xl font-bold text-[#FDFD00] items-center mt-8">
-            <a href="#home" onClick={() => setMenuOpen(false)}>
-              Home
-            </a>
-            <a href="#faq" onClick={() => setMenuOpen(false)}>
-              FAQ
-            </a>
-            <a href="#blog" onClick={() => setMenuOpen(false)}>
-              Blog
-            </a>
-            <a href="#programs" onClick={() => setMenuOpen(false)}>
-              Programs
-            </a>
-          </nav>
-        </div>
-      )}
-    </nav>
-  );
+                {!menuOpen && (
+                    <button className="text-white text-3xl sm:hidden absolute right-2" onClick={() => setMenuOpen(true)}>
+                        <HamburgerMenuIcon width={28} height={28} />
+                    </button>
+                )}
+
+            </div>
+
+            {/* Sidebar (Mobile only) */}
+
+            <div className={`fixed inset-0 bg-black/30 sm:hidden transition-opacity duration-300 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                onClick={() => setMenuOpen(false)} >
+
+                <div className={`absolute top-[95px] left-0 w-1/2 bg-[#0a0702] p-6 rounded-br-[50px] border-r-4 border-[#ff9900]  transform transition-transform duration-300 ${menuOpen ? "translate-x-0" : "-translate-x-full"}`} >
+
+                    <button className="text-white text-2xl mb-4" onClick={() => setMenuOpen(false)} >
+                        <Cross1Icon width={24} height={24} />
+                    </button>
+                    
+                    <ul className="flex flex-col gap-4 text-white text-lg">
+                        <li><a href="#home" onClick={() => setMenuOpen(false)}>Home</a></li>
+                        <li><a href="#intro" onClick={() => setMenuOpen(false)}>About</a></li>
+                        <li><a href="#projects" onClick={() => setMenuOpen(false)}>Events</a></li>
+                        <li><a href="#certificate" onClick={() => setMenuOpen(false)}>Projects</a></li>
+                        <li><a href="#contact" onClick={() => setMenuOpen(false)}>Team</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+    );
 };
 
 export default Navbar;
